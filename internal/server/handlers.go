@@ -2,17 +2,17 @@ package server
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/mrzalr/queue-api/internal/patient/delivery/http"
-	"github.com/mrzalr/queue-api/internal/patient/repository/mysql"
-	"github.com/mrzalr/queue-api/internal/patient/usecase"
+	patientHttp "github.com/mrzalr/queue-api/internal/patient/delivery/http"
+	patientRepo "github.com/mrzalr/queue-api/internal/patient/repository/mysql"
+	patientUcase "github.com/mrzalr/queue-api/internal/patient/usecase"
 )
 
 func (s *server) MapHandlers(app *fiber.App) {
-	patientRepository := mysql.New(s.DB)
+	patientRepository := patientRepo.New(s.DB)
 
-	patientUsecase := usecase.New(patientRepository)
+	patientUsecase := patientUcase.New(patientRepository)
 
-	patientHandler := http.New(patientUsecase)
+	patientHandler := patientHttp.New(patientUsecase)
 
 	v1 := app.Group("v1")
 
