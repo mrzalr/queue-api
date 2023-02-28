@@ -14,6 +14,6 @@ func New() (*gorm.DB, error) {
 		os.Getenv("MYSQL_PASSWORD"),
 		os.Getenv("MYSQL_HOST"),
 		os.Getenv("MYSQL_PORT"),
-		os.Getenv("MYSQL_DBNAME")) + "?charset=utf8mb4&parseTime=True&loc=Local"
+		os.Getenv("MYSQL_DBNAME")) + "?charset=utf8mb4&parseTime=True&loc=UTC"
 	return gorm.Open(mysql.Open(dsn), &gorm.Config{})
 }

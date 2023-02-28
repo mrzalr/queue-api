@@ -11,7 +11,7 @@ type Patient struct {
 	ID        uuid.UUID `json:"id"`
 	Name      string    `json:"name"`
 	DoB       time.Time `json:"date_of_birth"`
-	Address   time.Time `json:"address"`
+	Address   string    `json:"address"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
