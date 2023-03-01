@@ -1,11 +1,15 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type Queue struct {
 	Number    int       `json:"queue_number"`
 	IsDone    bool      `json:"is_done"`
-	PatientID int       `json:"patient_id"`
-	Patient   Patient   `json:"patient"`
+	PatientID uuid.UUID `json:"patient_id"`
 	CreatedAt time.Time `json:"created_at"`
+	Patient   Patient   `json:"patient"`
 }

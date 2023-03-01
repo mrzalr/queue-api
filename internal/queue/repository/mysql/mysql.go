@@ -23,22 +23,28 @@ func (r *repository) Find() ([]models.Queue, error) {
 // this function will return queue that not done yet
 func (r *repository) FindQueue() ([]models.Queue, error) {
 	queue := []models.Queue{}
-	tx := r.db.Where("is_done = ?", false).Find(&queue)
+	tx := r.db.Preload("Patient").Where("is_done = ?", false).Find(&queue)
 	return queue, tx.Error
 }
 
 func (r *repository) Create(queue models.Queue) error {
-	tx := r.db.Create(queue)
+	tx := r.db.Create(&queue)
 	return tx.Error
+}
+
+func (r *repository) GetCurrentQueueNumber() (int, error) {
+	queue := models.Queue{}
+	tx := r.db.Order("number DESC").Last(&queue)
+	return queue.Number, tx.Error
 }
 
 func (r *repository) FindLast() (models.Queue, error) {
 	queue := models.Queue{}
-	tx := r.db.Order("created_at").First(&queue)
+	tx := r.db.Where("is_done = ?", false).Order("created_at").First(&queue)
 	return queue, tx.Error
 }
 
 func (r *repository) Save(queue models.Queue) error {
-	tx := r.db.Save(&queue)
+	tx := r.db.Where("number = ?", queue.Number).Updates(&queue)
 	return tx.Error
 }

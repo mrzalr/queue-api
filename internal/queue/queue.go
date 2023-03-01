@@ -7,6 +7,7 @@ type Repository interface {
 	FindQueue() ([]models.Queue, error)
 	Create(queue models.Queue) error
 	FindLast() (models.Queue, error)
+	GetCurrentQueueNumber() (int, error)
 	Save(queue models.Queue) error
 }
 
