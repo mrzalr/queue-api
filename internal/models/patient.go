@@ -8,7 +8,7 @@ import (
 )
 
 type Patient struct {
-	ID        uuid.UUID `json:"id"`
+	ID        uuid.UUID `json:"id" gorm:"type:varchar(255);primaryKey"`
 	Name      string    `json:"name"`
 	DoB       time.Time `json:"date_of_birth"`
 	Address   string    `json:"address"`
